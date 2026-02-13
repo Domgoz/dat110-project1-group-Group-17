@@ -27,6 +27,7 @@ public class RPCServer {
 		
 		// the stop RPC method is built into the server
 		RPCRemoteImpl rpcstop = new RPCServerStopImpl(RPCCommon.RPIDSTOP,this);
+		services.put(RPCCommon.RPIDSTOP, rpcstop);
 		
 		System.out.println("RPC SERVER RUN - Services: " + services.size());
 			
@@ -70,7 +71,7 @@ public class RPCServer {
 			replymsg = new Message(rpcSvar);
 
 			connection.send(replymsg);
-
+			System.out.println("SERVER got rpcid=" + rpcid);
 			if (rpcid == RPCCommon.RPIDSTOP) {
     			stop = true;
 			}

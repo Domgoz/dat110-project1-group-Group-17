@@ -12,10 +12,12 @@ public class RPCUtils {
 		byte[] rpcmsg = null;
 		
 		// TODO - START
-		
+		//prøver å få fikset "messege is too long" fra testene 
+		if (payload == null) {payload = new byte[10];};
+
 		// Encapsulate the rpcid and payload in a byte array according to the RPC message syntax / format
 		
-		rpcmsg = new byte[128]; 
+		rpcmsg = new byte[1 + payload.length]; 
 		rpcmsg[0] = rpcid;
 		System.arraycopy(payload, 0, rpcmsg, 1, payload.length);
 
@@ -34,6 +36,8 @@ public class RPCUtils {
 		
 		
 		int payloadLen = rpcmsg.length - 1; 
+		//samme som i encapsulate
+		if (payloadLen <= 0) return new byte[0];
 		payload = new byte [payloadLen];
 		System.arraycopy(rpcmsg, 1, payload, 0, payloadLen);
 
@@ -64,8 +68,13 @@ public class RPCUtils {
 		String decoded = null; 
 		
 		// TODO - START 
-		
-		decoded = new String(data, StandardCharsets.UTF_8);
+		// skal sjekke om vi får en for lite byte 
+		int len = 0; 
+		while (len < data.length && data[len] != 0) {
+			len++;
+		}
+
+		decoded = new String(data,0, len, StandardCharsets.UTF_8);
 		
 		// TODO - END
 		
