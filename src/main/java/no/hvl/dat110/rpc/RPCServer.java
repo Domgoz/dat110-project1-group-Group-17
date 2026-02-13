@@ -40,8 +40,16 @@ public class RPCServer {
 	    
 		   byte rpcid = 0;
 		   Message requestmsg, replymsg;
+
+		   try {
+				requestmsg = connection.receive();
+				if (requestmsg == null) {
+					break;
+				}
+		   } catch (Exception e) {
+				break;
+		   }
 		   
-			requestmsg = connection.receive();
 			byte[] request = requestmsg.getData();
 
 			rpcid = request[0];
