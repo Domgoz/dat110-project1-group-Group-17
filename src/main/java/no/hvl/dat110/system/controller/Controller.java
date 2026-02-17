@@ -8,7 +8,7 @@ public class Controller  {
 	
 	private static int N = 5;
 	
-	public static void main (String[] args) {
+	public static void main (String[] args) throws InterruptedException {
 		
 		DisplayStub display;
 		SensorStub sensor;
@@ -36,8 +36,9 @@ public class Controller  {
 		for (int i = 0; i < N; i++) {
 			int value = sensor.read();
 			String valueS = String.valueOf(value);   
-			display.write(valueS);                  
-
+			display.write(valueS);  
+			Thread.sleep(1000);                
+		}
 		// create local display and sensor stub objects
 		// connect to sensor and display RPC servers - using the RPCClients
 		// read value from sensor using RPC and write to display using RPC
@@ -54,5 +55,4 @@ public class Controller  {
 		System.out.println("Controller stopping ...");
 		
 	}
-}
 }

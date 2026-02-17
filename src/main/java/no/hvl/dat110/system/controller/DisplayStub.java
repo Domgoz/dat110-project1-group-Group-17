@@ -13,7 +13,7 @@ public class DisplayStub extends RPCLocalStub {
 		
 		byte[] param = RPCUtils.marshallString(message);
 
-		byte[] response = rpcclient.call((byte)Common.READ_RPCID, param);
+		byte[] response = rpcclient.call((byte)Common.WRITE_RPCID, param);
 
 		RPCUtils.unmarshallVoid(response);
 		
